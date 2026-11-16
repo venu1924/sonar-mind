@@ -1,0 +1,17 @@
+Introduction to Relational Databases
+
+Good morning. Today we will cover why relational databases exist, how tables are organized, and how students should read a simple schema.
+
+A relational database stores data in tables. Each table represents one kind of thing, such as students, courses, or enrollments. A row is one record. A column is one attribute of that record. The student table might have columns for student id, full name, and email. The email column should stay unique so two people do not share the same login address.
+
+A primary key uniquely identifies a row. Student id is a good primary key because it does not change when a student updates their phone number. A foreign key is a column that points at a primary key in another table. In an enrollment table, student id is a foreign key to the student table, and course id is a foreign key to the course table. This is how the database records that one student can register for many courses, and one course can contain many students. That relationship is called many to many, and the enrollment table is the bridge.
+
+Normalization means we split data so the same fact is not stored in many places. If a course title lived inside every enrollment row, renaming the course would require many updates, and a missed row would create inconsistent data. After normalization, the title lives only in the course table.
+
+SQL is the language we use to ask questions. SELECT chooses columns. FROM names the table. WHERE filters rows. JOIN combines tables through keys. For example, to list student names with course titles, we join students to enrollments, then join enrollments to courses.
+
+Transactions keep related writes safe. A transfer of a student from one section to another should remove the old enrollment and insert the new one together. If the database crashes after the delete and before the insert, the student would vanish from both sections. A transaction commits both steps or rolls both back. The word ACID summarizes this promise: atomicity, consistency, isolation, and durability.
+
+Indexes speed up lookups. An index on email lets the database find a student without scanning every row. Indexes are not free. Each insert must also update the index, so we add indexes for columns we search often, not for every column.
+
+That is the lecture. Remember four ideas: tables hold rows and columns, keys connect tables, normalization avoids repeated facts, and SQL plus transactions let us query and update data safely.
